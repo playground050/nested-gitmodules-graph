@@ -1,12 +1,28 @@
 # nested-gitmodules-graph
 
 Walk a GitHub repository's **nested `.gitmodules`** and emit the dependency graph in
-whichever format you ask for — a Mermaid ER diagram, a Mermaid flowchart, Graphviz DOT,
-raw JSON, or a SQLite schema + seed.
+whichever format you ask for — an indented tree, a Mermaid ER diagram, a Mermaid
+flowchart, Graphviz DOT, raw JSON, or a SQLite schema + seed.
 
 A repo's `.gitmodules` points at submodule repositories; some of *those* repos have their
 own `.gitmodules`; and so on. This script follows that chain and records, for every hop,
 the exact commit the submodule is pinned to.
+
+```
+$ ./nested-gitmodules-graph.py grpc/grpc
+grpc/grpc @6e5ac36  ★45296
+├─ third_party/abseil-cpp → abseil/abseil-cpp @76bb243
+├─ third_party/bloaty → google/bloaty @60209eb
+│  ├─ third_party/protobuf → protocolbuffers/protobuf @bc1773c
+│  │  ├─ third_party/benchmark → google/benchmark @5b7683f
+│  │  └─ third_party/googletest → google/googletest @5ec7f0c
+│  └─ third_party/re2 → google/re2 @5bd6137
+├─ third_party/opentelemetry-cpp → open-telemetry/opentelemetry-cpp @ced7986
+│  └─ third_party/prometheus-cpp → jupp0r/prometheus-cpp @e5fada4
+│     ├─ 3rdparty/googletest → google/googletest @e2239ee
+│     └─ 3rdparty/civetweb → civetweb/civetweb @d7ba35b
+└─ … (google/googletest also appears at 52eb810, 565f1b8, f8d7d77 elsewhere)
+```
 
 ## Why the commit hash is the point
 
@@ -31,7 +47,7 @@ Example — one full run over `grpc/grpc`, dependencies pinned at more than one 
 | `protocolbuffers/protobuf` | `35cd01f` · `bc1773c` |
 | `google/re2` | `0c5616d` · `5bd6137` |
 
-Every output format carries the SHA: `er` / `flow` / `dot` put `@<sha7>` on the edge,
+Every output format carries the SHA: `tree` / `er` / `flow` / `dot` show `@<sha7>`,
 `json` stores the full `commit`, `sql` stores `submodule_pin.commit_sha`.
 
 ## Requirements
@@ -49,7 +65,7 @@ Every output format carries the SHA: `er` / `flow` / `dot` put `@<sha7>` on the 
 | option | meaning |
 | --- | --- |
 | `repo` (positional) | `owner/name` on github.com |
-| `--format` | comma-separated `er,flow,dot,json,sql`, or `all` (default: `flow`) |
+| `--format` | comma-separated `tree,er,flow,dot,json,sql`, or `all` (default: `tree`) |
 | `--ref` | branch, tag, or SHA to start from (default: the default branch's HEAD) |
 | `--max-depth N` | cap the walk at `N` submodule hops below the root (default: **unlimited** — follow every nested `.gitmodules`; `(repo, commit)` cycles are still guarded) |
 | `--out-dir DIR` | write `<owner>-<repo>.<format>.<ext>` into `DIR` instead of stdout |
@@ -140,23 +156,31 @@ once and a cycle cannot loop forever. Cost is ~2 `gh api` calls per distinct
 - **github.com only.** Submodules hosted elsewhere (e.g. `gitlab.com/libeigen/eigen`) are
   recorded as leaf nodes labelled `<host>/<owner>/<name>` — the walk can't follow them
   because it goes through `gh api`.
-- **`has_gitmodules` is per repo, not per commit.** If a repo nests at one pinned commit
-  but not another, its node still shows as "declares .gitmodules".
+- **In the graph formats (`er`/`flow`/`dot`) `has_gitmodules` is per repo, not per
+  commit.** If a repo nests at one pinned commit but not another, its node still shows as
+  "declares .gitmodules". The `tree` format is exact — it knows the commit at each spot
+  and only expands / annotates where that commit actually has submodules.
 - Very large trees can be truncated by the GitHub API; the script warns on stderr when
   that happens.
-- Wide graphs overwhelm `er` and `flow`; use `dot` (a real layout engine) past ~25 edges.
+- Wide graphs overwhelm `er` and `flow`; use `tree` or `dot` past ~25 edges.
 
 ## Format comparison
 
-| | renders on GitHub | cardinality notation | best for |
+| | renders on GitHub | shows per-commit truth | best for |
 | --- | --- | --- | --- |
-| `er` (Mermaid `erDiagram`) | yes | yes (`\|\|--o{`) | the schema + a small slice |
-| `flow` (Mermaid `flowchart`) | yes | no | the real shape, committed to a README |
+| `tree` (indented outline) | yes (fenced) | **yes** | "what's in here" — reads anywhere, no rendering |
+| `er` (Mermaid `erDiagram`) | yes | no | the schema + a small slice; has `\|\|--o{` cardinality |
+| `flow` (Mermaid `flowchart`) | yes | no | the real shape as a picture, in a README |
 | `dot` (Graphviz) | no (commit the SVG) | no | the full multi-repo graph, every level |
+| `json` | — | yes (`parent_commit`) | feeding another tool |
+| `sql` | — | yes | pivot tables / `HAVING COUNT(DISTINCT commit) > 1` |
+
+For "which dependency diverges", the query over `sql` (or a pivot of `json`) beats every
+diagram: rows = dependency, and every distinct pinned commit is one `GROUP_CONCAT` cell.
 
 ## Examples in this repo
 
-`examples/grpc-grpc.*` — all five formats for `grpc/grpc` at the time of generation
+`examples/grpc-grpc.*` — every format for `grpc/grpc` at the time of generation
 (default unlimited depth). Regenerate with
 `./nested-gitmodules-graph.py grpc/grpc --format all --out-dir examples`.
 

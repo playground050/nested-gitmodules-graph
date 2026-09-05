@@ -1,0 +1,38 @@
+grpc/grpc @6e5ac36  ★45296
+├─ third_party/abseil-cpp → abseil/abseil-cpp @76bb243
+├─ third_party/benchmark → google/benchmark @12235e2
+├─ third_party/bloaty → google/bloaty @60209eb
+│  ├─ third_party/re2 → google/re2 @5bd6137
+│  ├─ third_party/googletest → google/googletest @565f1b8
+│  ├─ third_party/abseil-cpp → abseil/abseil-cpp @5dd2407
+│  ├─ third_party/protobuf → protocolbuffers/protobuf @bc1773c
+│  │  ├─ third_party/benchmark → google/benchmark @5b7683f
+│  │  └─ third_party/googletest → google/googletest @5ec7f0c
+│  ├─ third_party/capstone → aquynh/capstone @852f46a
+│  ├─ third_party/demumble → nico/demumble @01098ea
+│  └─ third_party/zlib → madler/zlib @cacf7f1
+├─ third_party/boringssl-with-bazel → google/boringssl @3adc3d1
+├─ third_party/cares/cares → c-ares/c-ares @d3a507e
+├─ third_party/envoy-api → envoyproxy/data-plane-api @6ef568c
+├─ third_party/googleapis → googleapis/googleapis @2193a2b
+├─ third_party/googletest → google/googletest @52eb810
+├─ third_party/opencensus-proto → census-instrumentation/opencensus-proto @4aa53e1
+├─ third_party/opentelemetry → open-telemetry/opentelemetry-proto @60fa875
+├─ third_party/protobuf → protocolbuffers/protobuf @35cd01f
+├─ third_party/protoc-gen-validate → envoyproxy/protoc-gen-validate @7b06248
+├─ third_party/re2 → google/re2 @0c5616d
+├─ third_party/xds → cncf/xds @ee656c7
+├─ third_party/zlib → madler/zlib @f1f503d
+├─ third_party/opentelemetry-cpp → open-telemetry/opentelemetry-cpp @ced7986
+│  ├─ third_party/prometheus-cpp → jupp0r/prometheus-cpp @e5fada4
+│  │  ├─ 3rdparty/googletest → google/googletest @e2239ee
+│  │  └─ 3rdparty/civetweb → civetweb/civetweb @d7ba35b
+│  ├─ tools/vcpkg → Microsoft/vcpkg @fba75d0
+│  ├─ third_party/ms-gsl → microsoft/GSL @6f45293
+│  ├─ third_party/googletest → google/googletest @f8d7d77
+│  ├─ third_party/benchmark → google/benchmark @3441176
+│  ├─ third_party/opentelemetry-proto → open-telemetry/opentelemetry-proto @2bd940b
+│  ├─ third_party/nlohmann-json → nlohmann/json @9cca280
+│  └─ third_party/opentracing-cpp → opentracing/opentracing-cpp @06b57f4
+├─ third_party/cel-spec → google/cel-spec @9f069b3
+└─ third_party/grpc-proto → grpc/grpc-proto @ec30f58

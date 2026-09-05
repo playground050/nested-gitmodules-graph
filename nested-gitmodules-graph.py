@@ -25,9 +25,10 @@ import subprocess
 import sys
 from dataclasses import dataclass, field
 
-FORMATS = ("er", "flow", "dot", "json", "sql")
+FORMATS = ("tree", "er", "flow", "dot", "json", "sql")
 # out-dir filename suffix per format (er/flow share the .mmd extension, so keep the tag)
-SUFFIX = {"er": "er.mmd", "flow": "flow.mmd", "dot": "dot", "json": "json", "sql": "sql"}
+SUFFIX = {"tree": "tree.txt", "er": "er.mmd", "flow": "flow.mmd",
+          "dot": "dot", "json": "json", "sql": "sql"}
 
 
 # --------------------------------------------------------------------------- gh
@@ -85,7 +86,8 @@ def resolve_slug(url: str) -> tuple[str | None, str]:
 
 @dataclass
 class Pin:
-    parent: str          # 'owner/name'
+    parent: str           # 'owner/name'
+    parent_commit: str    # commit of the parent we read this pin from
     path: str
     child: str            # display slug ('owner/name' or 'host/owner/name')
     child_url: str
@@ -101,6 +103,7 @@ class Graph:
     root_stars: int | None = None
     pins: list[Pin] = field(default_factory=list)
     has_gitmodules: set[str] = field(default_factory=set)   # display slugs that declare submodules
+    nested_at: set[tuple[str, str]] = field(default_factory=set)  # (slug, commit) that declare submodules
     commit_of: dict[str, str] = field(default_factory=dict)  # slug -> commit we inspected it at
     depth_reached: int = 0                                   # deepest submodule hop actually visited
 
@@ -151,6 +154,7 @@ class Walker:
         if not mods:
             return
         g.has_gitmodules.add(repo)
+        g.nested_at.add((repo, sha))
         g.commit_of.setdefault(repo, sha)
         g.depth_reached = max(g.depth_reached, level)
         if self.max_depth is not None and level >= self.max_depth:
@@ -162,7 +166,7 @@ class Walker:
             on_gh = host == "github.com"
             display = ownername if on_gh else (f"{host}/{ownername}" if host else url)
             commit = links.get(path)
-            g.pins.append(Pin(repo, path, display, url, commit, on_gh))
+            g.pins.append(Pin(repo, sha, path, display, url, commit, on_gh))
             g.depth_reached = max(g.depth_reached, level + 1)
             self.log(f"L{level + 1}  {repo}  {path}  ->  {display}  @{(commit or '????')[:7]}")
             if on_gh and commit:
@@ -268,7 +272,8 @@ def render_json(g: Graph) -> str:
                 "in the parent's tree; the same child is pinned differently per parent.",
         "pins": [
             {
-                "parent": p.parent, "path": p.path, "child_repo": p.child,
+                "parent": p.parent, "parent_commit": p.parent_commit,
+                "path": p.path, "child_repo": p.child,
                 "child_url": p.child_url, "commit": p.commit,
                 "child_has_gitmodules": p.child in g.has_gitmodules,
             }
@@ -329,7 +334,43 @@ def render_sql(g: Graph) -> str:
     return "\n".join(L) + "\n"
 
 
+def render_tree(g: Graph) -> str:
+    """Indented tree, like `git submodule status --recursive` but nested."""
+    adj: dict[tuple[str, str], list[Pin]] = {}
+    for p in g.pins:
+        adj.setdefault((p.parent, p.parent_commit), []).append(p)
+
+    stars = f"  ★{g.root_stars}" if g.root_stars is not None else ""
+    out = [f"{g.root} @{g.root_commit[:7]}{stars}"]
+    expanded: set[tuple[str, str]] = {(g.root, g.root_commit)}
+
+    def rec(slug: str, commit: str, prefix: str):
+        kids = adj.get((slug, commit), [])
+        for i, p in enumerate(kids):
+            last = i == len(kids) - 1
+            csha = (p.commit or "???????")[:7]
+            key = (p.child, p.commit or "")
+            has_kids = key in adj
+            if not p.child_on_github:
+                note = "  (external host)"
+            elif has_kids and key in expanded:
+                note = "  (↑ expanded above)"
+            elif key in g.nested_at and not has_kids:
+                note = "  (nested — depth cap)"
+            else:
+                note = ""
+            out.append(f"{prefix}{'└─ ' if last else '├─ '}"
+                       f"{p.path} → {p.child} @{csha}{note}")
+            if has_kids and key not in expanded:
+                expanded.add(key)
+                rec(p.child, p.commit or "", prefix + ("   " if last else "│  "))
+
+    rec(g.root, g.root_commit, "")
+    return "\n".join(out) + "\n"
+
+
 RENDERERS = {
+    "tree": lambda g, a: render_tree(g),
     "er": lambda g, a: render_er(g, a.plain),
     "flow": lambda g, a: render_flow(g, a.plain),
     "dot": lambda g, a: render_dot(g),
@@ -345,8 +386,8 @@ def main(argv=None) -> int:
         description="Render a repo's nested .gitmodules graph (with pinned commit SHAs).")
     ap.add_argument("repo", help="owner/name on github.com")
     ap.add_argument("--ref", help="branch, tag, or SHA to start from (default: default branch HEAD)")
-    ap.add_argument("--format", default="flow",
-                    help=f"comma-separated: {', '.join(FORMATS)}, or 'all' (default: flow)")
+    ap.add_argument("--format", default="tree",
+                    help=f"comma-separated: {', '.join(FORMATS)}, or 'all' (default: tree)")
     ap.add_argument("--max-depth", type=int, default=None, metavar="N",
                     help="cap the walk at N submodule hops below the root "
                          "(default: unlimited — follow every nested .gitmodules; "

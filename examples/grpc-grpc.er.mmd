@@ -7,6 +7,8 @@ erDiagram
   R_google_bloaty ||--o{ R_google_googletest : "third_party/googletest @565f1b8"
   R_google_bloaty ||--o{ R_abseil_abseil_cpp : "third_party/abseil-cpp @5dd2407"
   R_google_bloaty ||--o{ R_protocolbuffers_protobuf : "third_party/protobuf @bc1773c"
+  R_protocolbuffers_protobuf ||--o{ R_google_benchmark : "third_party/benchmark @5b7683f"
+  R_protocolbuffers_protobuf ||--o{ R_google_googletest : "third_party/googletest @5ec7f0c"
   R_google_bloaty ||--o{ R_aquynh_capstone : "third_party/capstone @852f46a"
   R_google_bloaty ||--o{ R_nico_demumble : "third_party/demumble @01098ea"
   R_google_bloaty ||--o{ R_madler_zlib : "third_party/zlib @cacf7f1"
@@ -24,6 +26,8 @@ erDiagram
   R_grpc_grpc ||--o{ R_madler_zlib : "third_party/zlib @f1f503d"
   R_grpc_grpc ||--o{ R_open_telemetry_opentelemetry_cpp : "third_party/opentelemetry-cpp @ced7986"
   R_open_telemetry_opentelemetry_cpp ||--o{ R_jupp0r_prometheus_cpp : "third_party/prometheus-cpp @e5fada4"
+  R_jupp0r_prometheus_cpp ||--o{ R_google_googletest : "3rdparty/googletest @e2239ee"
+  R_jupp0r_prometheus_cpp ||--o{ R_civetweb_civetweb : "3rdparty/civetweb @d7ba35b"
   R_open_telemetry_opentelemetry_cpp ||--o{ R_Microsoft_vcpkg : "tools/vcpkg @fba75d0"
   R_open_telemetry_opentelemetry_cpp ||--o{ R_microsoft_GSL : "third_party/ms-gsl @6f45293"
   R_open_telemetry_opentelemetry_cpp ||--o{ R_google_googletest : "third_party/googletest @f8d7d77"
@@ -114,6 +118,10 @@ erDiagram
   R_jupp0r_prometheus_cpp {
     string slug "jupp0r/prometheus-cpp"
     bool has_gitmodules "yes"
+  }
+  R_civetweb_civetweb {
+    string slug "civetweb/civetweb"
+    bool has_gitmodules "no"
   }
   R_Microsoft_vcpkg {
     string slug "Microsoft/vcpkg"

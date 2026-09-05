@@ -21,11 +21,12 @@ what `git submodule status` prints). The same dependency is pinned to a **differ
 commit under each parent that vendors it, so a plain repo-to-repo graph silently drops
 information that matters for builds and CVEs.
 
-Example — one run over `grpc/grpc` (depth 2), dependencies pinned at more than one commit:
+Example — one full run over `grpc/grpc`, dependencies pinned at more than one commit:
 
 | dependency | distinct pins |
 | --- | --- |
-| `google/googletest` | `52eb810` · `565f1b8` · `f8d7d77` |
+| `google/googletest` | `52eb810` · `565f1b8` · `5ec7f0c` · `e2239ee` · `f8d7d77` |
+| `google/benchmark` | `12235e2` · `3441176` · `5b7683f` |
 | `abseil/abseil-cpp` | `76bb243` · `5dd2407` |
 | `protocolbuffers/protobuf` | `35cd01f` · `bc1773c` |
 | `google/re2` | `0c5616d` · `5bd6137` |
@@ -50,7 +51,7 @@ Every output format carries the SHA: `er` / `flow` / `dot` put `@<sha7>` on the 
 | `repo` (positional) | `owner/name` on github.com |
 | `--format` | comma-separated `er,flow,dot,json,sql`, or `all` (default: `flow`) |
 | `--ref` | branch, tag, or SHA to start from (default: the default branch's HEAD) |
-| `--max-depth N` | levels of submodules to follow below the root (default: `2`) |
+| `--max-depth N` | cap the walk at `N` submodule hops below the root (default: **unlimited** — follow every nested `.gitmodules`; `(repo, commit)` cycles are still guarded) |
 | `--out-dir DIR` | write `<owner>-<repo>.<format>.<ext>` into `DIR` instead of stdout |
 | `-o FILE` | write the single chosen `--format` to `FILE` |
 | `--plain` | omit the Mermaid `%%{init}%%` theming directive |
@@ -60,8 +61,13 @@ Every output format carries the SHA: `er` / `flow` / `dot` put `@<sha7>` on the 
 A one-line summary always goes to stderr:
 
 ```
-# grpc/grpc@6e5ac36: 33 pins, 26 repos, 5 declare .gitmodules, 7 deps pinned at >1 commit
+# grpc/grpc@6e5ac36: 37 pins, 27 repos, 5 declare .gitmodules, 7 deps pinned at >1 commit, deepest hop L3 (max-depth unlimited)
 ```
+
+The default walk is unbounded — it follows the `.gitmodules` chain as deep as it goes.
+Pass `--max-depth 1` for just the root's direct submodules, `--max-depth 2` for two hops,
+and so on. `--max-depth` only ever *reduces* work; the `(repo, commit)` cache and
+visited-set mean a bounded walk terminates even on a cyclic graph.
 
 ### Examples
 
@@ -122,10 +128,12 @@ For each `(repo, commit)` node:
 2. `gh api "repos/<repo>/git/trees/<commit>?recursive=1"` — tree entries of
    `type == "commit"` are gitlinks; each carries the pinned `sha`.
 3. Join by path, emit one pin per submodule, recurse into children that are on github.com
-   and themselves declare `.gitmodules`, until `--max-depth` runs out.
+   and themselves declare `.gitmodules`. By default this continues to the bottom of the
+   chain; `--max-depth N` stops it at `N` hops.
 
 `(repo, commit)` pairs are cached and de-duplicated, so a diamond in the graph is fetched
-once.
+once and a cycle cannot loop forever. Cost is ~2 `gh api` calls per distinct
+`(repo, commit)` that declares `.gitmodules`, plus one per leaf.
 
 ## Limitations
 
@@ -149,7 +157,8 @@ once.
 ## Examples in this repo
 
 `examples/grpc-grpc.*` — all five formats for `grpc/grpc` at the time of generation
-(depth 2). Regenerate with `./nested-gitmodules-graph.py grpc/grpc --format all --out-dir examples`.
+(default unlimited depth). Regenerate with
+`./nested-gitmodules-graph.py grpc/grpc --format all --out-dir examples`.
 
 Three real repos with nested `.gitmodules`, for testing:
 

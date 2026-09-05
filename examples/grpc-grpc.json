@@ -64,6 +64,22 @@
       "child_has_gitmodules": true
     },
     {
+      "parent": "protocolbuffers/protobuf",
+      "path": "third_party/benchmark",
+      "child_repo": "google/benchmark",
+      "child_url": "https://github.com/google/benchmark.git",
+      "commit": "5b7683f49e1e9223cf9927b24f6fd3d6bd82e3f8",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "protocolbuffers/protobuf",
+      "path": "third_party/googletest",
+      "child_repo": "google/googletest",
+      "child_url": "https://github.com/google/googletest.git",
+      "commit": "5ec7f0c4a113e2f18ac2c6cc7df51ad6afc24081",
+      "child_has_gitmodules": false
+    },
+    {
       "parent": "google/bloaty",
       "path": "third_party/capstone",
       "child_repo": "aquynh/capstone",
@@ -198,6 +214,22 @@
       "child_url": "https://github.com/jupp0r/prometheus-cpp",
       "commit": "e5fada43131d251e9c4786b04263ce98b6767ba5",
       "child_has_gitmodules": true
+    },
+    {
+      "parent": "jupp0r/prometheus-cpp",
+      "path": "3rdparty/googletest",
+      "child_repo": "google/googletest",
+      "child_url": "https://github.com/google/googletest.git",
+      "commit": "e2239ee6043f73722e7aa812a459f54a28552929",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "jupp0r/prometheus-cpp",
+      "path": "3rdparty/civetweb",
+      "child_repo": "civetweb/civetweb",
+      "child_url": "https://github.com/civetweb/civetweb.git",
+      "commit": "d7ba35bbb649209c66e582d5a0244ba988a15159",
+      "child_has_gitmodules": false
     },
     {
       "parent": "open-telemetry/opentelemetry-cpp",

@@ -22,6 +22,7 @@ flowchart LR
   R_cncf_xds["cncf/xds"]:::leaf
   R_open_telemetry_opentelemetry_cpp["open-telemetry/opentelemetry-cpp"]:::nested
   R_jupp0r_prometheus_cpp["jupp0r/prometheus-cpp"]:::nested
+  R_civetweb_civetweb["civetweb/civetweb"]:::leaf
   R_Microsoft_vcpkg["Microsoft/vcpkg"]:::leaf
   R_microsoft_GSL["microsoft/GSL"]:::leaf
   R_nlohmann_json["nlohmann/json"]:::leaf
@@ -35,6 +36,8 @@ flowchart LR
   R_google_bloaty -->|"third_party/googletest<br/>@565f1b8"| R_google_googletest
   R_google_bloaty -->|"third_party/abseil-cpp<br/>@5dd2407"| R_abseil_abseil_cpp
   R_google_bloaty -->|"third_party/protobuf<br/>@bc1773c"| R_protocolbuffers_protobuf
+  R_protocolbuffers_protobuf -->|"third_party/benchmark<br/>@5b7683f"| R_google_benchmark
+  R_protocolbuffers_protobuf -->|"third_party/googletest<br/>@5ec7f0c"| R_google_googletest
   R_google_bloaty -->|"third_party/capstone<br/>@852f46a"| R_aquynh_capstone
   R_google_bloaty -->|"third_party/demumble<br/>@01098ea"| R_nico_demumble
   R_google_bloaty -->|"third_party/zlib<br/>@cacf7f1"| R_madler_zlib
@@ -52,6 +55,8 @@ flowchart LR
   R_grpc_grpc -->|"third_party/zlib<br/>@f1f503d"| R_madler_zlib
   R_grpc_grpc -->|"third_party/opentelemetry-cpp<br/>@ced7986"| R_open_telemetry_opentelemetry_cpp
   R_open_telemetry_opentelemetry_cpp -->|"third_party/prometheus-cpp<br/>@e5fada4"| R_jupp0r_prometheus_cpp
+  R_jupp0r_prometheus_cpp -->|"3rdparty/googletest<br/>@e2239ee"| R_google_googletest
+  R_jupp0r_prometheus_cpp -->|"3rdparty/civetweb<br/>@d7ba35b"| R_civetweb_civetweb
   R_open_telemetry_opentelemetry_cpp -->|"tools/vcpkg<br/>@fba75d0"| R_Microsoft_vcpkg
   R_open_telemetry_opentelemetry_cpp -->|"third_party/ms-gsl<br/>@6f45293"| R_microsoft_GSL
   R_open_telemetry_opentelemetry_cpp -->|"third_party/googletest<br/>@f8d7d77"| R_google_googletest

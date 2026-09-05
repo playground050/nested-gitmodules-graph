@@ -102,11 +102,12 @@ class Graph:
     pins: list[Pin] = field(default_factory=list)
     has_gitmodules: set[str] = field(default_factory=set)   # display slugs that declare submodules
     commit_of: dict[str, str] = field(default_factory=dict)  # slug -> commit we inspected it at
+    depth_reached: int = 0                                   # deepest submodule hop actually visited
 
 
 class Walker:
-    def __init__(self, max_depth: int, verbose: bool):
-        self.max_depth = max_depth
+    def __init__(self, max_depth: int | None, verbose: bool):
+        self.max_depth = max_depth          # None = follow the chain all the way down
         self.verbose = verbose
         self._gitmodules: dict[tuple[str, str], list[tuple[str, str]]] = {}
         self._gitlinks: dict[tuple[str, str], dict[str, str]] = {}
@@ -140,7 +141,8 @@ class Walker:
                       file=sys.stderr)
         return self._gitlinks[key]
 
-    def walk(self, g: Graph, repo: str, sha: str, depth: int):
+    def walk(self, g: Graph, repo: str, sha: str, level: int):
+        """level = number of submodule hops from the root (root is level 0)."""
         if (repo, sha) in self._visited:
             return
         self._visited.add((repo, sha))
@@ -150,7 +152,8 @@ class Walker:
             return
         g.has_gitmodules.add(repo)
         g.commit_of.setdefault(repo, sha)
-        if depth <= 0:
+        g.depth_reached = max(g.depth_reached, level)
+        if self.max_depth is not None and level >= self.max_depth:
             return
 
         links = self.gitlinks(repo, sha)
@@ -160,12 +163,13 @@ class Walker:
             display = ownername if on_gh else (f"{host}/{ownername}" if host else url)
             commit = links.get(path)
             g.pins.append(Pin(repo, path, display, url, commit, on_gh))
-            self.log(f"{repo}  {path}  ->  {display}  @{(commit or '????')[:7]}")
+            g.depth_reached = max(g.depth_reached, level + 1)
+            self.log(f"L{level + 1}  {repo}  {path}  ->  {display}  @{(commit or '????')[:7]}")
             if on_gh and commit:
-                self.walk(g, ownername, commit, depth - 1)
+                self.walk(g, ownername, commit, level + 1)
 
 
-def build_graph(repo: str, ref: str | None, max_depth: int, want_stars: bool,
+def build_graph(repo: str, ref: str | None, max_depth: int | None, want_stars: bool,
                 verbose: bool) -> Graph:
     head = gh_json(f"repos/{repo}/commits/{ref or 'HEAD'}")["sha"]
     g = Graph(root=repo, root_ref=ref or "HEAD", root_commit=head)
@@ -174,7 +178,7 @@ def build_graph(repo: str, ref: str | None, max_depth: int, want_stars: bool,
             g.root_stars = gh_json(f"repos/{repo}")["stargazers_count"]
         except GhError:
             pass
-    Walker(max_depth, verbose).walk(g, repo, head, max_depth)
+    Walker(max_depth, verbose).walk(g, repo, head, 0)
     return g
 
 
@@ -343,8 +347,10 @@ def main(argv=None) -> int:
     ap.add_argument("--ref", help="branch, tag, or SHA to start from (default: default branch HEAD)")
     ap.add_argument("--format", default="flow",
                     help=f"comma-separated: {', '.join(FORMATS)}, or 'all' (default: flow)")
-    ap.add_argument("--max-depth", type=int, default=2,
-                    help="levels of submodules to follow below the root (default: 2)")
+    ap.add_argument("--max-depth", type=int, default=None, metavar="N",
+                    help="cap the walk at N submodule hops below the root "
+                         "(default: unlimited — follow every nested .gitmodules; "
+                         "cycles are still guarded)")
     ap.add_argument("--out-dir", help="write <owner>-<name>.<ext> here instead of stdout")
     ap.add_argument("-o", "--out", help="write the single chosen format to this file")
     ap.add_argument("--plain", action="store_true",
@@ -376,14 +382,16 @@ def main(argv=None) -> int:
         print(f"error: {e}", file=sys.stderr)
         return 1
 
+    cap = "unlimited" if args.max_depth is None else str(args.max_depth)
     if not g.pins:
         print(f"note: {args.repo}@{g.root_commit[:7]} has no .gitmodules "
-              f"(or none within depth {args.max_depth})", file=sys.stderr)
+              f"(or none within max-depth {cap})", file=sys.stderr)
 
     multi = sum(1 for _ in _multi_pinned(g))
     print(f"# {args.repo}@{g.root_commit[:7]}: {len(g.pins)} pins, "
           f"{len(_nodes(g))} repos, {len(g.has_gitmodules)} declare .gitmodules, "
-          f"{multi} deps pinned at >1 commit", file=sys.stderr)
+          f"{multi} deps pinned at >1 commit, deepest hop L{g.depth_reached} "
+          f"(max-depth {cap})", file=sys.stderr)
 
     base = args.repo.replace("/", "-")
     for f in fmts:

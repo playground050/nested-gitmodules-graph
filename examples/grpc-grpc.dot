@@ -25,6 +25,7 @@ digraph submodules {
   R_cncf_xds [label="cncf/xds"];
   R_open_telemetry_opentelemetry_cpp [label="open-telemetry/opentelemetry-cpp", fillcolor="#f6e2da", color="#bf4127", fontcolor="#8f2f1c"];
   R_jupp0r_prometheus_cpp [label="jupp0r/prometheus-cpp", fillcolor="#f6e2da", color="#bf4127", fontcolor="#8f2f1c"];
+  R_civetweb_civetweb [label="civetweb/civetweb"];
   R_Microsoft_vcpkg [label="Microsoft/vcpkg"];
   R_microsoft_GSL [label="microsoft/GSL"];
   R_nlohmann_json [label="nlohmann/json"];
@@ -39,6 +40,8 @@ digraph submodules {
   R_google_bloaty -> R_google_googletest [label=" third_party/googletest\n @565f1b8"];
   R_google_bloaty -> R_abseil_abseil_cpp [label=" third_party/abseil-cpp\n @5dd2407"];
   R_google_bloaty -> R_protocolbuffers_protobuf [label=" third_party/protobuf\n @bc1773c"];
+  R_protocolbuffers_protobuf -> R_google_benchmark [label=" third_party/benchmark\n @5b7683f"];
+  R_protocolbuffers_protobuf -> R_google_googletest [label=" third_party/googletest\n @5ec7f0c"];
   R_google_bloaty -> R_aquynh_capstone [label=" third_party/capstone\n @852f46a"];
   R_google_bloaty -> R_nico_demumble [label=" third_party/demumble\n @01098ea"];
   R_google_bloaty -> R_madler_zlib [label=" third_party/zlib\n @cacf7f1"];
@@ -56,6 +59,8 @@ digraph submodules {
   R_grpc_grpc -> R_madler_zlib [label=" third_party/zlib\n @f1f503d"];
   R_grpc_grpc -> R_open_telemetry_opentelemetry_cpp [label=" third_party/opentelemetry-cpp\n @ced7986"];
   R_open_telemetry_opentelemetry_cpp -> R_jupp0r_prometheus_cpp [label=" third_party/prometheus-cpp\n @e5fada4"];
+  R_jupp0r_prometheus_cpp -> R_google_googletest [label=" 3rdparty/googletest\n @e2239ee"];
+  R_jupp0r_prometheus_cpp -> R_civetweb_civetweb [label=" 3rdparty/civetweb\n @d7ba35b"];
   R_open_telemetry_opentelemetry_cpp -> R_Microsoft_vcpkg [label=" tools/vcpkg\n @fba75d0"];
   R_open_telemetry_opentelemetry_cpp -> R_microsoft_GSL [label=" third_party/ms-gsl\n @6f45293"];
   R_open_telemetry_opentelemetry_cpp -> R_google_googletest [label=" third_party/googletest\n @f8d7d77"];

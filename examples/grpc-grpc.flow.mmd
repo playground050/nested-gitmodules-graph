@@ -1,0 +1,63 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"IBM Plex Mono, monospace","fontSize":"11px","primaryColor":"#ffffff","primaryBorderColor":"#c9c2b6","lineColor":"#9a9186","primaryTextColor":"#211d18"}}}%%
+flowchart LR
+  classDef nested fill:#f6e2da,stroke:#bf4127,color:#8f2f1c;
+  classDef leaf fill:#ffffff,stroke:#c9c2b6,color:#211d18;
+  R_grpc_grpc["grpc/grpc"]:::nested
+  R_abseil_abseil_cpp["abseil/abseil-cpp"]:::leaf
+  R_google_benchmark["google/benchmark"]:::leaf
+  R_google_bloaty["google/bloaty"]:::nested
+  R_google_re2["google/re2"]:::leaf
+  R_google_googletest["google/googletest"]:::leaf
+  R_protocolbuffers_protobuf["protocolbuffers/protobuf"]:::nested
+  R_aquynh_capstone["aquynh/capstone"]:::leaf
+  R_nico_demumble["nico/demumble"]:::leaf
+  R_madler_zlib["madler/zlib"]:::leaf
+  R_google_boringssl["google/boringssl"]:::leaf
+  R_c_ares_c_ares["c-ares/c-ares"]:::leaf
+  R_envoyproxy_data_plane_api["envoyproxy/data-plane-api"]:::leaf
+  R_googleapis_googleapis["googleapis/googleapis"]:::leaf
+  R_census_instrumentation_opencensus_proto["census-instrumentation/opencensus-proto"]:::leaf
+  R_open_telemetry_opentelemetry_proto["open-telemetry/opentelemetry-proto"]:::leaf
+  R_envoyproxy_protoc_gen_validate["envoyproxy/protoc-gen-validate"]:::leaf
+  R_cncf_xds["cncf/xds"]:::leaf
+  R_open_telemetry_opentelemetry_cpp["open-telemetry/opentelemetry-cpp"]:::nested
+  R_jupp0r_prometheus_cpp["jupp0r/prometheus-cpp"]:::nested
+  R_Microsoft_vcpkg["Microsoft/vcpkg"]:::leaf
+  R_microsoft_GSL["microsoft/GSL"]:::leaf
+  R_nlohmann_json["nlohmann/json"]:::leaf
+  R_opentracing_opentracing_cpp["opentracing/opentracing-cpp"]:::leaf
+  R_google_cel_spec["google/cel-spec"]:::leaf
+  R_grpc_grpc_proto["grpc/grpc-proto"]:::leaf
+  R_grpc_grpc -->|"third_party/abseil-cpp<br/>@76bb243"| R_abseil_abseil_cpp
+  R_grpc_grpc -->|"third_party/benchmark<br/>@12235e2"| R_google_benchmark
+  R_grpc_grpc -->|"third_party/bloaty<br/>@60209eb"| R_google_bloaty
+  R_google_bloaty -->|"third_party/re2<br/>@5bd6137"| R_google_re2
+  R_google_bloaty -->|"third_party/googletest<br/>@565f1b8"| R_google_googletest
+  R_google_bloaty -->|"third_party/abseil-cpp<br/>@5dd2407"| R_abseil_abseil_cpp
+  R_google_bloaty -->|"third_party/protobuf<br/>@bc1773c"| R_protocolbuffers_protobuf
+  R_google_bloaty -->|"third_party/capstone<br/>@852f46a"| R_aquynh_capstone
+  R_google_bloaty -->|"third_party/demumble<br/>@01098ea"| R_nico_demumble
+  R_google_bloaty -->|"third_party/zlib<br/>@cacf7f1"| R_madler_zlib
+  R_grpc_grpc -->|"third_party/boringssl-with-bazel<br/>@3adc3d1"| R_google_boringssl
+  R_grpc_grpc -->|"third_party/cares/cares<br/>@d3a507e"| R_c_ares_c_ares
+  R_grpc_grpc -->|"third_party/envoy-api<br/>@6ef568c"| R_envoyproxy_data_plane_api
+  R_grpc_grpc -->|"third_party/googleapis<br/>@2193a2b"| R_googleapis_googleapis
+  R_grpc_grpc -->|"third_party/googletest<br/>@52eb810"| R_google_googletest
+  R_grpc_grpc -->|"third_party/opencensus-proto<br/>@4aa53e1"| R_census_instrumentation_opencensus_proto
+  R_grpc_grpc -->|"third_party/opentelemetry<br/>@60fa875"| R_open_telemetry_opentelemetry_proto
+  R_grpc_grpc -->|"third_party/protobuf<br/>@35cd01f"| R_protocolbuffers_protobuf
+  R_grpc_grpc -->|"third_party/protoc-gen-validate<br/>@7b06248"| R_envoyproxy_protoc_gen_validate
+  R_grpc_grpc -->|"third_party/re2<br/>@0c5616d"| R_google_re2
+  R_grpc_grpc -->|"third_party/xds<br/>@ee656c7"| R_cncf_xds
+  R_grpc_grpc -->|"third_party/zlib<br/>@f1f503d"| R_madler_zlib
+  R_grpc_grpc -->|"third_party/opentelemetry-cpp<br/>@ced7986"| R_open_telemetry_opentelemetry_cpp
+  R_open_telemetry_opentelemetry_cpp -->|"third_party/prometheus-cpp<br/>@e5fada4"| R_jupp0r_prometheus_cpp
+  R_open_telemetry_opentelemetry_cpp -->|"tools/vcpkg<br/>@fba75d0"| R_Microsoft_vcpkg
+  R_open_telemetry_opentelemetry_cpp -->|"third_party/ms-gsl<br/>@6f45293"| R_microsoft_GSL
+  R_open_telemetry_opentelemetry_cpp -->|"third_party/googletest<br/>@f8d7d77"| R_google_googletest
+  R_open_telemetry_opentelemetry_cpp -->|"third_party/benchmark<br/>@3441176"| R_google_benchmark
+  R_open_telemetry_opentelemetry_cpp -->|"third_party/opentelemetry-proto<br/>@2bd940b"| R_open_telemetry_opentelemetry_proto
+  R_open_telemetry_opentelemetry_cpp -->|"third_party/nlohmann-json<br/>@9cca280"| R_nlohmann_json
+  R_open_telemetry_opentelemetry_cpp -->|"third_party/opentracing-cpp<br/>@06b57f4"| R_opentracing_opentracing_cpp
+  R_grpc_grpc -->|"third_party/cel-spec<br/>@9f069b3"| R_google_cel_spec
+  R_grpc_grpc -->|"third_party/grpc-proto<br/>@ec30f58"| R_grpc_grpc_proto

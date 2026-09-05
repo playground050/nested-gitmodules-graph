@@ -1,0 +1,141 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"IBM Plex Mono, monospace","fontSize":"11px","primaryColor":"#ffffff","primaryBorderColor":"#c9c2b6","lineColor":"#9a9186","primaryTextColor":"#211d18"}}}%%
+erDiagram
+  R_grpc_grpc ||--o{ R_abseil_abseil_cpp : "third_party/abseil-cpp @76bb243"
+  R_grpc_grpc ||--o{ R_google_benchmark : "third_party/benchmark @12235e2"
+  R_grpc_grpc ||--o{ R_google_bloaty : "third_party/bloaty @60209eb"
+  R_google_bloaty ||--o{ R_google_re2 : "third_party/re2 @5bd6137"
+  R_google_bloaty ||--o{ R_google_googletest : "third_party/googletest @565f1b8"
+  R_google_bloaty ||--o{ R_abseil_abseil_cpp : "third_party/abseil-cpp @5dd2407"
+  R_google_bloaty ||--o{ R_protocolbuffers_protobuf : "third_party/protobuf @bc1773c"
+  R_google_bloaty ||--o{ R_aquynh_capstone : "third_party/capstone @852f46a"
+  R_google_bloaty ||--o{ R_nico_demumble : "third_party/demumble @01098ea"
+  R_google_bloaty ||--o{ R_madler_zlib : "third_party/zlib @cacf7f1"
+  R_grpc_grpc ||--o{ R_google_boringssl : "third_party/boringssl-with-bazel @3adc3d1"
+  R_grpc_grpc ||--o{ R_c_ares_c_ares : "third_party/cares/cares @d3a507e"
+  R_grpc_grpc ||--o{ R_envoyproxy_data_plane_api : "third_party/envoy-api @6ef568c"
+  R_grpc_grpc ||--o{ R_googleapis_googleapis : "third_party/googleapis @2193a2b"
+  R_grpc_grpc ||--o{ R_google_googletest : "third_party/googletest @52eb810"
+  R_grpc_grpc ||--o{ R_census_instrumentation_opencensus_proto : "third_party/opencensus-proto @4aa53e1"
+  R_grpc_grpc ||--o{ R_open_telemetry_opentelemetry_proto : "third_party/opentelemetry @60fa875"
+  R_grpc_grpc ||--o{ R_protocolbuffers_protobuf : "third_party/protobuf @35cd01f"
+  R_grpc_grpc ||--o{ R_envoyproxy_protoc_gen_validate : "third_party/protoc-gen-validate @7b06248"
+  R_grpc_grpc ||--o{ R_google_re2 : "third_party/re2 @0c5616d"
+  R_grpc_grpc ||--o{ R_cncf_xds : "third_party/xds @ee656c7"
+  R_grpc_grpc ||--o{ R_madler_zlib : "third_party/zlib @f1f503d"
+  R_grpc_grpc ||--o{ R_open_telemetry_opentelemetry_cpp : "third_party/opentelemetry-cpp @ced7986"
+  R_open_telemetry_opentelemetry_cpp ||--o{ R_jupp0r_prometheus_cpp : "third_party/prometheus-cpp @e5fada4"
+  R_open_telemetry_opentelemetry_cpp ||--o{ R_Microsoft_vcpkg : "tools/vcpkg @fba75d0"
+  R_open_telemetry_opentelemetry_cpp ||--o{ R_microsoft_GSL : "third_party/ms-gsl @6f45293"
+  R_open_telemetry_opentelemetry_cpp ||--o{ R_google_googletest : "third_party/googletest @f8d7d77"
+  R_open_telemetry_opentelemetry_cpp ||--o{ R_google_benchmark : "third_party/benchmark @3441176"
+  R_open_telemetry_opentelemetry_cpp ||--o{ R_open_telemetry_opentelemetry_proto : "third_party/opentelemetry-proto @2bd940b"
+  R_open_telemetry_opentelemetry_cpp ||--o{ R_nlohmann_json : "third_party/nlohmann-json @9cca280"
+  R_open_telemetry_opentelemetry_cpp ||--o{ R_opentracing_opentracing_cpp : "third_party/opentracing-cpp @06b57f4"
+  R_grpc_grpc ||--o{ R_google_cel_spec : "third_party/cel-spec @9f069b3"
+  R_grpc_grpc ||--o{ R_grpc_grpc_proto : "third_party/grpc-proto @ec30f58"
+
+  R_grpc_grpc {
+    string slug "grpc/grpc"
+    bool has_gitmodules "yes"
+    int stars "45296"
+  }
+  R_abseil_abseil_cpp {
+    string slug "abseil/abseil-cpp"
+    bool has_gitmodules "no"
+  }
+  R_google_benchmark {
+    string slug "google/benchmark"
+    bool has_gitmodules "no"
+  }
+  R_google_bloaty {
+    string slug "google/bloaty"
+    bool has_gitmodules "yes"
+  }
+  R_google_re2 {
+    string slug "google/re2"
+    bool has_gitmodules "no"
+  }
+  R_google_googletest {
+    string slug "google/googletest"
+    bool has_gitmodules "no"
+  }
+  R_protocolbuffers_protobuf {
+    string slug "protocolbuffers/protobuf"
+    bool has_gitmodules "yes"
+  }
+  R_aquynh_capstone {
+    string slug "aquynh/capstone"
+    bool has_gitmodules "no"
+  }
+  R_nico_demumble {
+    string slug "nico/demumble"
+    bool has_gitmodules "no"
+  }
+  R_madler_zlib {
+    string slug "madler/zlib"
+    bool has_gitmodules "no"
+  }
+  R_google_boringssl {
+    string slug "google/boringssl"
+    bool has_gitmodules "no"
+  }
+  R_c_ares_c_ares {
+    string slug "c-ares/c-ares"
+    bool has_gitmodules "no"
+  }
+  R_envoyproxy_data_plane_api {
+    string slug "envoyproxy/data-plane-api"
+    bool has_gitmodules "no"
+  }
+  R_googleapis_googleapis {
+    string slug "googleapis/googleapis"
+    bool has_gitmodules "no"
+  }
+  R_census_instrumentation_opencensus_proto {
+    string slug "census-instrumentation/opencensus-proto"
+    bool has_gitmodules "no"
+  }
+  R_open_telemetry_opentelemetry_proto {
+    string slug "open-telemetry/opentelemetry-proto"
+    bool has_gitmodules "no"
+  }
+  R_envoyproxy_protoc_gen_validate {
+    string slug "envoyproxy/protoc-gen-validate"
+    bool has_gitmodules "no"
+  }
+  R_cncf_xds {
+    string slug "cncf/xds"
+    bool has_gitmodules "no"
+  }
+  R_open_telemetry_opentelemetry_cpp {
+    string slug "open-telemetry/opentelemetry-cpp"
+    bool has_gitmodules "yes"
+  }
+  R_jupp0r_prometheus_cpp {
+    string slug "jupp0r/prometheus-cpp"
+    bool has_gitmodules "yes"
+  }
+  R_Microsoft_vcpkg {
+    string slug "Microsoft/vcpkg"
+    bool has_gitmodules "no"
+  }
+  R_microsoft_GSL {
+    string slug "microsoft/GSL"
+    bool has_gitmodules "no"
+  }
+  R_nlohmann_json {
+    string slug "nlohmann/json"
+    bool has_gitmodules "no"
+  }
+  R_opentracing_opentracing_cpp {
+    string slug "opentracing/opentracing-cpp"
+    bool has_gitmodules "no"
+  }
+  R_google_cel_spec {
+    string slug "google/cel-spec"
+    bool has_gitmodules "no"
+  }
+  R_grpc_grpc_proto {
+    string slug "grpc/grpc-proto"
+    bool has_gitmodules "no"
+  }

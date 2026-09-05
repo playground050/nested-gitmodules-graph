@@ -1,0 +1,68 @@
+digraph submodules {
+  rankdir=LR;
+  bgcolor="transparent";
+  node [shape=box, style="filled,rounded", fillcolor="#ffffff", color="#c9c2b6",
+        fontname="IBM Plex Mono", fontsize=10, fontcolor="#211d18", margin="0.12,0.06"];
+  edge [color="#9a9186", fontname="IBM Plex Mono", fontsize=8, fontcolor="#6f675d", arrowsize=0.7];
+
+  R_grpc_grpc [label="grpc/grpc", fillcolor="#f6e2da", color="#bf4127", fontcolor="#8f2f1c"];
+  R_abseil_abseil_cpp [label="abseil/abseil-cpp"];
+  R_google_benchmark [label="google/benchmark"];
+  R_google_bloaty [label="google/bloaty", fillcolor="#f6e2da", color="#bf4127", fontcolor="#8f2f1c"];
+  R_google_re2 [label="google/re2"];
+  R_google_googletest [label="google/googletest"];
+  R_protocolbuffers_protobuf [label="protocolbuffers/protobuf", fillcolor="#f6e2da", color="#bf4127", fontcolor="#8f2f1c"];
+  R_aquynh_capstone [label="aquynh/capstone"];
+  R_nico_demumble [label="nico/demumble"];
+  R_madler_zlib [label="madler/zlib"];
+  R_google_boringssl [label="google/boringssl"];
+  R_c_ares_c_ares [label="c-ares/c-ares"];
+  R_envoyproxy_data_plane_api [label="envoyproxy/data-plane-api"];
+  R_googleapis_googleapis [label="googleapis/googleapis"];
+  R_census_instrumentation_opencensus_proto [label="census-instrumentation/opencensus-proto"];
+  R_open_telemetry_opentelemetry_proto [label="open-telemetry/opentelemetry-proto"];
+  R_envoyproxy_protoc_gen_validate [label="envoyproxy/protoc-gen-validate"];
+  R_cncf_xds [label="cncf/xds"];
+  R_open_telemetry_opentelemetry_cpp [label="open-telemetry/opentelemetry-cpp", fillcolor="#f6e2da", color="#bf4127", fontcolor="#8f2f1c"];
+  R_jupp0r_prometheus_cpp [label="jupp0r/prometheus-cpp", fillcolor="#f6e2da", color="#bf4127", fontcolor="#8f2f1c"];
+  R_Microsoft_vcpkg [label="Microsoft/vcpkg"];
+  R_microsoft_GSL [label="microsoft/GSL"];
+  R_nlohmann_json [label="nlohmann/json"];
+  R_opentracing_opentracing_cpp [label="opentracing/opentracing-cpp"];
+  R_google_cel_spec [label="google/cel-spec"];
+  R_grpc_grpc_proto [label="grpc/grpc-proto"];
+
+  R_grpc_grpc -> R_abseil_abseil_cpp [label=" third_party/abseil-cpp\n @76bb243"];
+  R_grpc_grpc -> R_google_benchmark [label=" third_party/benchmark\n @12235e2"];
+  R_grpc_grpc -> R_google_bloaty [label=" third_party/bloaty\n @60209eb"];
+  R_google_bloaty -> R_google_re2 [label=" third_party/re2\n @5bd6137"];
+  R_google_bloaty -> R_google_googletest [label=" third_party/googletest\n @565f1b8"];
+  R_google_bloaty -> R_abseil_abseil_cpp [label=" third_party/abseil-cpp\n @5dd2407"];
+  R_google_bloaty -> R_protocolbuffers_protobuf [label=" third_party/protobuf\n @bc1773c"];
+  R_google_bloaty -> R_aquynh_capstone [label=" third_party/capstone\n @852f46a"];
+  R_google_bloaty -> R_nico_demumble [label=" third_party/demumble\n @01098ea"];
+  R_google_bloaty -> R_madler_zlib [label=" third_party/zlib\n @cacf7f1"];
+  R_grpc_grpc -> R_google_boringssl [label=" third_party/boringssl-with-bazel\n @3adc3d1"];
+  R_grpc_grpc -> R_c_ares_c_ares [label=" third_party/cares/cares\n @d3a507e"];
+  R_grpc_grpc -> R_envoyproxy_data_plane_api [label=" third_party/envoy-api\n @6ef568c"];
+  R_grpc_grpc -> R_googleapis_googleapis [label=" third_party/googleapis\n @2193a2b"];
+  R_grpc_grpc -> R_google_googletest [label=" third_party/googletest\n @52eb810"];
+  R_grpc_grpc -> R_census_instrumentation_opencensus_proto [label=" third_party/opencensus-proto\n @4aa53e1"];
+  R_grpc_grpc -> R_open_telemetry_opentelemetry_proto [label=" third_party/opentelemetry\n @60fa875"];
+  R_grpc_grpc -> R_protocolbuffers_protobuf [label=" third_party/protobuf\n @35cd01f"];
+  R_grpc_grpc -> R_envoyproxy_protoc_gen_validate [label=" third_party/protoc-gen-validate\n @7b06248"];
+  R_grpc_grpc -> R_google_re2 [label=" third_party/re2\n @0c5616d"];
+  R_grpc_grpc -> R_cncf_xds [label=" third_party/xds\n @ee656c7"];
+  R_grpc_grpc -> R_madler_zlib [label=" third_party/zlib\n @f1f503d"];
+  R_grpc_grpc -> R_open_telemetry_opentelemetry_cpp [label=" third_party/opentelemetry-cpp\n @ced7986"];
+  R_open_telemetry_opentelemetry_cpp -> R_jupp0r_prometheus_cpp [label=" third_party/prometheus-cpp\n @e5fada4"];
+  R_open_telemetry_opentelemetry_cpp -> R_Microsoft_vcpkg [label=" tools/vcpkg\n @fba75d0"];
+  R_open_telemetry_opentelemetry_cpp -> R_microsoft_GSL [label=" third_party/ms-gsl\n @6f45293"];
+  R_open_telemetry_opentelemetry_cpp -> R_google_googletest [label=" third_party/googletest\n @f8d7d77"];
+  R_open_telemetry_opentelemetry_cpp -> R_google_benchmark [label=" third_party/benchmark\n @3441176"];
+  R_open_telemetry_opentelemetry_cpp -> R_open_telemetry_opentelemetry_proto [label=" third_party/opentelemetry-proto\n @2bd940b"];
+  R_open_telemetry_opentelemetry_cpp -> R_nlohmann_json [label=" third_party/nlohmann-json\n @9cca280"];
+  R_open_telemetry_opentelemetry_cpp -> R_opentracing_opentracing_cpp [label=" third_party/opentracing-cpp\n @06b57f4"];
+  R_grpc_grpc -> R_google_cel_spec [label=" third_party/cel-spec\n @9f069b3"];
+  R_grpc_grpc -> R_grpc_grpc_proto [label=" third_party/grpc-proto\n @ec30f58"];
+}

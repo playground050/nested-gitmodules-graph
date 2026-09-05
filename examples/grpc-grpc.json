@@ -1,0 +1,275 @@
+{
+  "root": {
+    "repo": "grpc/grpc",
+    "ref": "HEAD",
+    "commit": "6e5ac36afeb4a13c9d0c62241c91323c1e8ad8a8",
+    "stars": 45296
+  },
+  "note": "pin = (parent, path) -> (child_repo, commit). commit is the gitlink SHA in the parent's tree; the same child is pinned differently per parent.",
+  "pins": [
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/abseil-cpp",
+      "child_repo": "abseil/abseil-cpp",
+      "child_url": "https://github.com/abseil/abseil-cpp.git",
+      "commit": "76bb24329e8bf5f39704eb10d21b9a80befa7c81",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/benchmark",
+      "child_repo": "google/benchmark",
+      "child_url": "https://github.com/google/benchmark",
+      "commit": "12235e24652fc7f809373e7c11a5f73c5763fc4c",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/bloaty",
+      "child_repo": "google/bloaty",
+      "child_url": "https://github.com/google/bloaty.git",
+      "commit": "60209eb1ccc34d5deefb002d1b7f37545204f7f2",
+      "child_has_gitmodules": true
+    },
+    {
+      "parent": "google/bloaty",
+      "path": "third_party/re2",
+      "child_repo": "google/re2",
+      "child_url": "https://github.com/google/re2",
+      "commit": "5bd613749fd530b576b890283bfb6bc6ea6246cb",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "google/bloaty",
+      "path": "third_party/googletest",
+      "child_repo": "google/googletest",
+      "child_url": "https://github.com/google/googletest.git",
+      "commit": "565f1b848215b77c3732bca345fe76a0431d8b34",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "google/bloaty",
+      "path": "third_party/abseil-cpp",
+      "child_repo": "abseil/abseil-cpp",
+      "child_url": "https://github.com/abseil/abseil-cpp.git",
+      "commit": "5dd240724366295970c613ed23d0092bcf392f18",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "google/bloaty",
+      "path": "third_party/protobuf",
+      "child_repo": "protocolbuffers/protobuf",
+      "child_url": "https://github.com/protocolbuffers/protobuf.git",
+      "commit": "bc1773c42c9c3c522145a3119e989e0dff2a8d54",
+      "child_has_gitmodules": true
+    },
+    {
+      "parent": "google/bloaty",
+      "path": "third_party/capstone",
+      "child_repo": "aquynh/capstone",
+      "child_url": "https://github.com/aquynh/capstone.git",
+      "commit": "852f46a467cb37559a1f3a18bd45d5ca8c6fc5e7",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "google/bloaty",
+      "path": "third_party/demumble",
+      "child_repo": "nico/demumble",
+      "child_url": "https://github.com/nico/demumble.git",
+      "commit": "01098eab821b33bd31b9778aea38565cd796aa85",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "google/bloaty",
+      "path": "third_party/zlib",
+      "child_repo": "madler/zlib",
+      "child_url": "https://github.com/madler/zlib",
+      "commit": "cacf7f1d4e3d44d871b605da3b647f07d718623f",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/boringssl-with-bazel",
+      "child_repo": "google/boringssl",
+      "child_url": "https://github.com/google/boringssl.git",
+      "commit": "3adc3d1aba162a578e2547f329fcce8659b8e89c",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/cares/cares",
+      "child_repo": "c-ares/c-ares",
+      "child_url": "https://github.com/c-ares/c-ares.git",
+      "commit": "d3a507e920e7af18a5efb7f9f1d8044ed4750013",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/envoy-api",
+      "child_repo": "envoyproxy/data-plane-api",
+      "child_url": "https://github.com/envoyproxy/data-plane-api.git",
+      "commit": "6ef568cf4a67362849911d1d2a546fd9f35db2ff",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/googleapis",
+      "child_repo": "googleapis/googleapis",
+      "child_url": "https://github.com/googleapis/googleapis.git",
+      "commit": "2193a2bfcecb92b92aad7a4d81baa428cafd7dfd",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/googletest",
+      "child_repo": "google/googletest",
+      "child_url": "https://github.com/google/googletest.git",
+      "commit": "52eb8108c5bdec04579160ae17225d66034bd723",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/opencensus-proto",
+      "child_repo": "census-instrumentation/opencensus-proto",
+      "child_url": "https://github.com/census-instrumentation/opencensus-proto.git",
+      "commit": "4aa53e15cbf1a47bc9087e6cfdca214c1eea4e89",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/opentelemetry",
+      "child_repo": "open-telemetry/opentelemetry-proto",
+      "child_url": "https://github.com/open-telemetry/opentelemetry-proto.git",
+      "commit": "60fa8754d890b5c55949a8c68dcfd7ab5c2395df",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/protobuf",
+      "child_repo": "protocolbuffers/protobuf",
+      "child_url": "https://github.com/protocolbuffers/protobuf.git",
+      "commit": "35cd01f9fe9afbeea38cc7b979a3b6bfcde82c03",
+      "child_has_gitmodules": true
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/protoc-gen-validate",
+      "child_repo": "envoyproxy/protoc-gen-validate",
+      "child_url": "https://github.com/envoyproxy/protoc-gen-validate.git",
+      "commit": "7b06248484ceeaa947e93ca2747eccf336a88ecc",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/re2",
+      "child_repo": "google/re2",
+      "child_url": "https://github.com/google/re2.git",
+      "commit": "0c5616df9c0aaa44c9440d87422012423d91c7d1",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/xds",
+      "child_repo": "cncf/xds",
+      "child_url": "https://github.com/cncf/xds.git",
+      "commit": "ee656c7534f5d7dc23d44dd611689568f72017a6",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/zlib",
+      "child_repo": "madler/zlib",
+      "child_url": "https://github.com/madler/zlib",
+      "commit": "f1f503da85d52e56aae11557b4d79a42bcaa2b86",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/opentelemetry-cpp",
+      "child_repo": "open-telemetry/opentelemetry-cpp",
+      "child_url": "https://github.com/open-telemetry/opentelemetry-cpp",
+      "commit": "ced79860f8c8a091a2eabfee6d47783f828a9b59",
+      "child_has_gitmodules": true
+    },
+    {
+      "parent": "open-telemetry/opentelemetry-cpp",
+      "path": "third_party/prometheus-cpp",
+      "child_repo": "jupp0r/prometheus-cpp",
+      "child_url": "https://github.com/jupp0r/prometheus-cpp",
+      "commit": "e5fada43131d251e9c4786b04263ce98b6767ba5",
+      "child_has_gitmodules": true
+    },
+    {
+      "parent": "open-telemetry/opentelemetry-cpp",
+      "path": "tools/vcpkg",
+      "child_repo": "Microsoft/vcpkg",
+      "child_url": "https://github.com/Microsoft/vcpkg",
+      "commit": "fba75d09065fcc76a25dcf386b1d00d33f5175af",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "open-telemetry/opentelemetry-cpp",
+      "path": "third_party/ms-gsl",
+      "child_repo": "microsoft/GSL",
+      "child_url": "https://github.com/microsoft/GSL",
+      "commit": "6f4529395c5b7c2d661812257cd6780c67e54afa",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "open-telemetry/opentelemetry-cpp",
+      "path": "third_party/googletest",
+      "child_repo": "google/googletest",
+      "child_url": "https://github.com/google/googletest",
+      "commit": "f8d7d77c06936315286eb55f8de22cd23c188571",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "open-telemetry/opentelemetry-cpp",
+      "path": "third_party/benchmark",
+      "child_repo": "google/benchmark",
+      "child_url": "https://github.com/google/benchmark",
+      "commit": "344117638c8ff7e239044fd0fa7085839fc03021",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "open-telemetry/opentelemetry-cpp",
+      "path": "third_party/opentelemetry-proto",
+      "child_repo": "open-telemetry/opentelemetry-proto",
+      "child_url": "https://github.com/open-telemetry/opentelemetry-proto",
+      "commit": "2bd940b2b77c1ab57c27166af21384906da7bb2b",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "open-telemetry/opentelemetry-cpp",
+      "path": "third_party/nlohmann-json",
+      "child_repo": "nlohmann/json",
+      "child_url": "https://github.com/nlohmann/json",
+      "commit": "9cca280a4d0ccf0c08f47a99aa71d1b0e52f8d03",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "open-telemetry/opentelemetry-cpp",
+      "path": "third_party/opentracing-cpp",
+      "child_repo": "opentracing/opentracing-cpp",
+      "child_url": "https://github.com/opentracing/opentracing-cpp.git",
+      "commit": "06b57f48ded1fa3bdd3d4346f6ef29e40e08eaf5",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/cel-spec",
+      "child_repo": "google/cel-spec",
+      "child_url": "https://github.com/google/cel-spec",
+      "commit": "9f069b3ee58b02d6f6736c5ebd6587075c1a1b22",
+      "child_has_gitmodules": false
+    },
+    {
+      "parent": "grpc/grpc",
+      "path": "third_party/grpc-proto",
+      "child_repo": "grpc/grpc-proto",
+      "child_url": "https://github.com/grpc/grpc-proto.git",
+      "commit": "ec30f589e2519d595688b9a42f88a91bdd6b733f",
+      "child_has_gitmodules": false
+    }
+  ]
+}
